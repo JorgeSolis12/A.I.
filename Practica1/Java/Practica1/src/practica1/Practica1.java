@@ -28,7 +28,7 @@ public class Practica1 {
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
          // hacer una lectura comoda (disponer del metodo readLine()).
-         archivo = new File ("C:\\Users\\pumas\\Documents\\NetBeansProjects\\Practica1\\src\\practica1\\file\\matriz.txt");
+         archivo = new File ("F:\\Documents\\GitHub\\A.I\\Practica1\\Java\\Practica1\\src\\practica1\\file\\matriz.txt");
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
 
