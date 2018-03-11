@@ -11,7 +11,6 @@ def cargarLaberinto():
 	for line in archivo.readlines():
 		fila = list(line)
 		fila.pop()
-		fila.pop()
 
 		while fila.count(',') !=0: #busca y retira las comas en la lista
 			fila.remove(',')
@@ -24,9 +23,9 @@ def cargarLaberinto():
 			print fila[i],
 			i += 1
 		laberinto.append( fila )
-
 		print '\n'
 		i = 0
+		
 	print '\n\n' 
 	print laberinto
 	filas = len(laberinto)	
