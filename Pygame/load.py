@@ -1,4 +1,5 @@
-import pygame, sys
+
+import pygame, sys, os
 from pygame.locals import * #importar las librerias de pygame y sys, esta ultima nos ayudara a cerrar la ventana
 
 pygame.init()#inicializa el modulo de pygame

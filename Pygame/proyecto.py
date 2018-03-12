@@ -150,17 +150,19 @@ class Invasor(pygame.sprite.Sprite):
 
 def cargarEnemigos():
 	posx = 100
-	for x in rage(1,5):
+	for x in range(1,5):
 		enemigo = Invasor(posx,100,40,'img/MarcianoA.jpg','img/MarcianoB.jpg')
 		listaEnemigo.append(enemigo)
 		posx += 200
 	
-	for x in rage(1,5):
+	posx = 100
+	for x in range(1,5):
 		enemigo = Invasor(posx,0,40,'img/Marciano2A.jpg','img/Marciano2B.jpg')
 		listaEnemigo.append(enemigo)
 		posx += 200
 	
-	for x in rage(1,5):
+	posx = 100
+	for x in range(1,5):
 		enemigo = Invasor(posx,-100,40,'img/Marciano3A.jpg','img/Marciano3B.jpg')
 		listaEnemigo.append(enemigo)
 		posx += 200
@@ -210,22 +212,36 @@ def SpaceInvader():
 			for x in jugador.listaDisparo:
 				x.dibujar(ventana)
 				x.trayectoria()
-				
 				if x.rect.top <-10:
 					jugador.listaDisparo.remove(x)
+				else:
+					for enemigo in listaEnemigo:
+						if x.rect.colliderect(enemigo.rect):
+							listaEnemigo.remove(enemigo)
+							jugador.listaDisparo.remove(x)
 		
 		if listaEnemigo > 0:
 			for enemigo in listaEnemigo:
 				enemigo.comportamiento(tiempo)
-				enemigo.dibujar(ventana)		
+				enemigo.dibujar(ventana)	
+				
+				if enemigo.rect.colliderect(jugador.rect):
+					pass
+					
 				if len(enemigo.listaDisparo) > 0:
 					for x in enemigo.listaDisparo:
 						x.dibujar(ventana)
 						x.trayectoria()
-						
+						if x.rect.colliderect(jugador.rect):
+							pass
 						if x.rect.top >900:
 							enemigo.listaDisparo.remove(x)
-				
+						else:
+							for disparo in jugador.listaDisparo:
+								if x.rect.colliderect(disparo.rect):
+									jugador.listaDisparo.remove(disparo)
+									enemigo.listaDisparo.remove(x)
+									
 		pygame.display.update()#Mantiene la ventana actualizada
 			
 SpaceInvader()
