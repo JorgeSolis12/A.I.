@@ -61,7 +61,7 @@ class Jugador(pygame.sprite.Sprite):
 		else:
 			self.rect.bottom += self.velocidad
 			self.__movimiento()"""
-			
+
 	def movimientoDerecha(self):
 		self.rect.right += self.velocidad
 		self.__movimiento()
