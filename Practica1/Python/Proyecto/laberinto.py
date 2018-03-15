@@ -6,6 +6,7 @@ from pygame.locals import * #importar las librerias de pygame y sys, esta ultima
 #-------------------------VARIABLES GLOBALES-----------------------------------
 ancho = 900
 alto = 900
+jugador = Jugador(ancho,alto)
 laberinto = []
 fila = []
 archivo = open( "file/matriz.txt", "r" )
@@ -49,6 +50,9 @@ def cargarLaberinto():
 		posy += 60
 		i += 1
 	
+
+
+	
 def MazeRunner():
 	pygame.init()#inicializa el modulo de pygame	
 	cargarLaberinto()
@@ -58,15 +62,13 @@ def MazeRunner():
 	pygame.mixer.music.load('sounds/megamanX4Volcano.mp3')
 	pygame.mixer.music.play(3)
 	
-	reloj = pygame.time.Clock()
-	jugador = Jugador(ancho,alto)	
+	reloj = pygame.time.Clock()	
 	enJuego = True
 	
 	while True:#Mantiene la ventana abierta con un loop infinito
 		reloj.tick(60)
 		
 		ventana.fill(colorFondo)
-		
 		tiempo = pygame.time.get_ticks()/1000
 		
 		for event in pygame.event.get():#Captura los eventos en la ventana
@@ -78,12 +80,30 @@ def MazeRunner():
 				if event.type == pygame.KEYDOWN:
 					if event.key == K_LEFT:
 						jugador.movimientoIzquierda()
+						for muro in listaMuros:
+							if jugador.rect.colliderect(muro.rect):
+								jugador.movimientoDerecha()
 					elif event.key == K_RIGHT:
 						jugador.movimientoDerecha()
+						for muro in listaMuros:
+							if jugador.rect.colliderect(muro.rect):
+								jugador.movimientoIzquierda()		
+							
 					elif event.key == K_UP:
 						jugador.movimientoArriba()
+						for muro in listaMuros:
+							if jugador.rect.colliderect(muro.rect):
+								jugador.movimientoAbajo()
+							
 					elif event.key == K_DOWN:
 						jugador.movimientoAbajo()
+						for muro in listaMuros:
+							if jugador.rect.colliderect(muro.rect):
+								jugador.movimientoArriba()
+							
+					elif event.key == K_SPACE:
+						pygame.quit()
+						sys.exit()
 				
 			"""if enJuego == True:
 				if event.type == pygame.KEYDOWN:
@@ -116,11 +136,9 @@ def MazeRunner():
 		if len(listaMuros) > 0:
 			for muro in listaMuros:
 				muro.dibujar(ventana)
-				if jugador.rect.colliderect(muro.rect):
+				"""if muro.rect.colliderect(jugador.rect):
+					print "colisiona"""
 					#jugador.movimientoDetener()
-					#print muro
-					pass
-		
 		jugador.dibujar(ventana)	
 		jugador.comportamiento(tiempo)
 		
