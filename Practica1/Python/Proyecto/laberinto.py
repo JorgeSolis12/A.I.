@@ -49,6 +49,7 @@ def cargarLaberinto():
 		posx = 0
 		posy += 60
 		i += 1
+		
 	
 
 
@@ -57,20 +58,28 @@ def MazeRunner():
 	pygame.init()#inicializa el modulo de pygame	
 	cargarLaberinto()
 	ventana = pygame.display.set_mode((ancho,alto))#crea un objeto de tipo superficie
-	pygame.display.set_caption("Space Invader")#Mensaje en la superficie
-	colorFondo = (255,255,255)
+	pygame.display.set_caption("Maze Runner")#Mensaje en la superficie
+	colorFondo = (255,0,0)
 	pygame.mixer.music.load('sounds/megamanX4Volcano.mp3')
 	pygame.mixer.music.play(3)
-	
 	reloj = pygame.time.Clock()	
+	salida = pygame.image.load("img/salida.png")
+	entrada = pygame.image.load("img/entrada.png")
+	
 	enJuego = True
 	
-	while True:#Mantiene la ventana abierta con un loop infinito
+	while enJuego:#Mantiene la ventana abierta con un loop infinito
+		
+		if jugador.rect.right == 900 and jugador.rect.top == 60:
+			enJuego = False
+			print "Salida"
 		reloj.tick(60)
 		
 		ventana.fill(colorFondo)
 		tiempo = pygame.time.get_ticks()/1000
-		
+		ventana.blit(salida,(840,60))
+		ventana.blit(entrada,(60,120))
+	
 		for event in pygame.event.get():#Captura los eventos en la ventana
 			if event.type == QUIT:#Si el usuario presiona en 'x' cerrar
 				pygame.quit()#Cierra el modulo de pygame
@@ -136,9 +145,11 @@ def MazeRunner():
 		if len(listaMuros) > 0:
 			for muro in listaMuros:
 				muro.dibujar(ventana)
+		
 				"""if muro.rect.colliderect(jugador.rect):
 					print "colisiona"""
 					#jugador.movimientoDetener()
+		
 		jugador.dibujar(ventana)	
 		jugador.comportamiento(tiempo)
 		

@@ -19,7 +19,7 @@ class Jugador(pygame.sprite.Sprite):
 		self.rect = self.imagenJugador.get_rect()"""
 		
 		self.rect.left = 60 
-		self.rect.top = 60
+		self.rect.top = 120
 		
 		self.Vida = True
 		
@@ -63,18 +63,22 @@ class Jugador(pygame.sprite.Sprite):
 			self.__movimiento()"""
 
 	def movimientoDerecha(self):
+		self.__movimiento()
 		self.rect.right += self.velocidad
 		self.__movimiento()
 		
 	def movimientoIzquierda(self):
+		self.__movimiento()
 		self.rect.left -= self.velocidad
 		self.__movimiento()
 		
 	def movimientoArriba(self):
+		self.__movimiento()
 		self.rect.top -= self.velocidad
 		self.__movimiento()
 		
 	def movimientoAbajo(self):
+		self.__movimiento()
 		self.rect.bottom += self.velocidad
 		self.__movimiento()
 		
@@ -87,7 +91,7 @@ class Jugador(pygame.sprite.Sprite):
 			elif self.rect.top <= 0:
 				self.rect.top = 0
 			elif self.rect.bottom > self.maxFon:
-				self.rect.bottom = self.maxFon			
+				self.rect.bottom = self.maxFon
 				
 	def comportamiento(self, tiempo):
 		self.__movimiento()
