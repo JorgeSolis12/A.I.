@@ -4,17 +4,16 @@ from Clases import Jugador
 from Clases import Muro
 from pygame.locals import * #importar las librerias de pygame y sys, esta ultima nos ayudara a cerrar la ventana
 #-------------------------VARIABLES GLOBALES-----------------------------------
-ancho = 900
-alto = 900
-jugador = Jugador(ancho,alto)
-laberinto = []
-fila = []
-archivo = open( "file/matriz.txt", "r" )
-listaMuros = []
+ancho = 900#ancho de la ventana
+alto = 900#alto de la ventana
+jugador = Jugador(ancho,alto)#creación del objeto jugador
+laberinto = []#matriz de 1's y 0's que definen al laberinto
+fila = []#lista auxiliar
+archivo = open( "file/matriz.txt", "r" )#archivo que contiene la información del laberinto
+listaMuros = []#lista de todos los muros con su posición
 #-------------------------FIN DE LAS VARIABLES GLOBALES-------------------------
 
-def cargarArchivo():
-		
+def cargarArchivo():#Función que lee el archivo txt	con la forma del laberinto
 	for line in archivo.readlines():
 		fila = list(line)
 		fila.pop()
@@ -86,6 +85,15 @@ def MazeRunner():
 				sys.exit()#Cierra la ventana
 				
 			if enJuego == True:
+				for muro in listaMuros:
+							if (muro.rect.centerx + 60)==jugador.rect.centerx and muro.rect.centery ==jugador.rect.centery:
+								muro.visible = True
+							elif (muro.rect.centerx - 60)==jugador.rect.centerx  and muro.rect.centery ==jugador.rect.centery:
+								muro.visible = True
+							elif (muro.rect.centery + 60)==jugador.rect.centery  and muro.rect.centerx ==jugador.rect.centerx:
+								muro.visible = True
+							elif (muro.rect.centery - 60)==jugador.rect.centery  and muro.rect.centerx ==jugador.rect.centerx:
+								muro.visible = True								
 				if event.type == pygame.KEYDOWN:
 					if event.key == K_LEFT:
 						jugador.movimientoIzquierda()
@@ -116,7 +124,7 @@ def MazeRunner():
 
 		if len(listaMuros) > 0:
 			for muro in listaMuros:
-				 if jugador.rect.left == muro.rect.right or jugador.rect.right == muro.rect.left or jugador.rect.top == muro.rect.bottom or jugador.rect.bottom == muro.rect.top:
+				 if muro.visible:
 					muro.dibujar(ventana)
 
 		jugador.dibujar(ventana)	

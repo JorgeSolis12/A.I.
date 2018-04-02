@@ -7,6 +7,7 @@ class Muro(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 		self.imagenMuro = pygame.image.load('img/muro.png')
 		self.rect = self.imagenMuro.get_rect()
+		self.visible = False
 			
 		self.rect.top = posy
 		self.rect.left = posx
