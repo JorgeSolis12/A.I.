@@ -6,14 +6,14 @@ from pygame.locals import * #importar las librerias de pygame y sys, esta ultima
 #-------------------------VARIABLES GLOBALES-----------------------------------
 ancho = 900#ancho de la ventana
 alto = 900#alto de la ventana
-jugador = Jugador(ancho,alto)#creación del objeto jugador
+jugador = Jugador(ancho,alto)#creacion del objeto jugador
 laberinto = []#matriz de 1's y 0's que definen al laberinto
 fila = []#lista auxiliar
-archivo = open( "file/matriz.txt", "r" )#archivo que contiene la información del laberinto
-listaMuros = []#lista de todos los muros con su posición
+archivo = open( "file/matriz.txt", "r" )#archivo que contiene la informacion del laberinto
+listaMuros = []#lista de todos los muros con su posicion
 #-------------------------FIN DE LAS VARIABLES GLOBALES-------------------------
 
-def cargarArchivo():#Función que lee el archivo txt	con la forma del laberinto
+def cargarArchivo():#Funcion que lee el archivo txt	con la forma del laberinto
 	for line in archivo.readlines():
 		fila = list(line)
 		fila.pop()
